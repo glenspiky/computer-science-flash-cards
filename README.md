@@ -1,195 +1,167 @@
-# Computer Science Flash Cards
 
-This is a little website I've put together to allow me to easily make flash cards and quiz myself for memorization of:
+# CS FlashCards
 
-- General cs knowledge
-  - vocabulary
-  - definitions of processes
-  - powers of 2
-  - design patterns
-- Code
-  - data structures
-  - algorithms
-  - solving problems
-  - bitwise operations
+A simple web application built with Django to help students learn and retain Computer Science concepts through flashcards.
 
-Will be able to use it on:
+The goal of this project is to make studying CS topics easier by providing a clean interface for creating, organizing, and reviewing flashcards.
 
-- desktop
-- mobile (phone and tablet)
+## Features
 
-It uses:
+* Create and manage flashcards
+* Organize cards by topic
+* Review cards using active recall
+* Track learning progress
+* Search for specific concepts
+* Responsive design for desktop and mobile devices
 
-- Python 3
-- Flask
-- SQLite
+Topics can include:
 
----
+### Computer Science Fundamentals
 
-## About the Site
+* Data Structures
+* Algorithms
+* Operating Systems
+* Computer Networks
+* Databases
+* Object-Oriented Programming
+* Design Patterns
+* System Design
 
-Here's a brief rundown: https://startupnextdoor.com/flash-cards-site-complete/
+### Programming Concepts
+
+* Time & Space Complexity
+* Recursion
+* Dynamic Programming
+* Bit Manipulation
+* Sorting Algorithms
+* Graph Algorithms
+* Language Syntax & Concepts
+
+## Tech Stack
+
+Built with:
+
+* Python 3
+* Django
+* SQLite (development)
+* Bootstrap / Tailwind CSS
+* HTML, CSS, JavaScript
 
 ## Screenshots
 
-UI for listing cards. From here you can add and edit cards.
+### Dashboard
 
-![Card UI](screenshots/cards_ui-1467754141259.png)
+Manage your flashcards and track your learning progress.
 
----
-
-The front of a General flash card.
-
-![Memorizing general knowledge](screenshots/memorize_ui-1467754306971.png)
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
-The reverse (answer side) of a Code flash card.
+### Flashcard Review
 
-![Code view](screenshots/memorize_code-1467754962142.png)
+Study using active recall by viewing the question first and revealing the answer when ready.
 
-## Important Note
-
-The set included in this project (**cards-jwasham.db**) is not my full set, and is way too big already.
-
-Thanks for asking for my list of 1,792 cards. But **it’s too much.** I even printed them out. It’s 50 pages, front and back, in tiny text. It would take about 8 hours to just read them all.
-
-My set includes a lot of obscure info from books I’ve read, Python trivia, machine learning knowledge, assembly language, etc.
-
-I've added it to the project if you want it (**cards-jwasham-extreme.db**). You've been warned.
-
-Please make your own set, and while you’re making them, only make cards for what you need to know. Otherwise, it gets out of hand.
-
-## How to convert to Anki or CSV
-
-If you don't want to run a server, you can simply use Anki or a similar service/app. Use this script to convert from my sets (SQLite .db file), or yours, to CSV:
-
-https://github.com/eyedol/tools/blob/master/anki_data_builder.py
-
-Thanks [@eyedol](https://github.com/eyedol)
-
-## Anki Flashcards:
-
-* [computer science flash cards - (basic)](https://ankiweb.net/shared/info/1782040640)
-* [computer science flash cards - (extreme)](https://ankiweb.net/shared/info/1691396127)
-
-Thanks [@JackKuo-tw](https://github.com/JackKuo-tw)
-
-## How to run it on a server
-
-1. Clone project to a directory on your web server.
-1. Edit the config.txt file. Change the secret key, username and password. The username and password will be the login
-    for your site. There is only one user - you.
-1. Follow this long tutorial to get Flask running. It was way more work than it should be:
-    https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-16-04
-    - `wsgi.py` is the entry point. It calls `flash_cards.py`
-    - This is my systemd file `/etc/systemd/system/flash_cards.service`: [view](flash_cards.service)
-        - you can see the paths where I installed it, and the name of my virtualenv directory
-    - when done with tutorial:
-    ```shell
-    sudo systemctl restart flash_cards
-    sudo systemctl daemon-reload
-    ```
-1. When you see a login page, you're good to go.
-1. Log in.
-1. Click the "General" or "Code" button and make a card!
-1. When you're ready to start memorizing, click either "General" or "Code"
-    in the top menu.
-
-## How to run it on local host (Quick Guide)
-
-*Provided by [@devyash](https://github.com/devyash) - devyashsanghai@gmail.com - Reach out to this contributor if you have trouble.*
-
-1. Install dependencies:
-   1. Install [Python](https://www.python.org/download/releases)
-   1. Add python as environment variable [windows](http://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-7)
-   1. To install pip, securely download [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
-   1. Run `python get-pip.py` in terminal
-   1. Add pip to your PATH system variable [windows](https://stackoverflow.com/questions/23708898/pip-is-not-recognized-as-an-internal-or-external-command)
-   1. Run `pip install -r requirements.txt` in terminal after going to correct folder
-1. Type `python flash_cards.py` - if you get error for flask then use `python -m pip install Flask` first then run `flash_card.py` file
-1. Open localhost:5000/
-1. Login using 'admin' and 'default' for the username and password, respectively.
-
-**NOTE:** If you wish to use John's flash cards then also do following steps:
-
-1. Copy db files such as `cards-jwasham-extreme` OR `cards-jwasham` and paste them in db folder
-1. Edit file `flash_cards.py` line 8 and replace 'cards.db' with any of the other database files e.g.('cards-jwasham.db') 
-1. Repeat the above steps from step 3
-
-Every time you wish to run your db just open folder in terminal and run  `python flash_cards.py`
-
-## How to run with Docker
-
-*Provided by [@Tinpee](https://github.com/tinpee) - tinpee.dev@gmail.com - Reach out to this contributor if you have trouble.*
-
-__Make sure you already installed [docker](https://www.docker.com) and optionally [docker-compose](https://docs.docker.com/compose/install/)__
-
-1. Clone project to any where you want and go to source folder.
-1. Edit the `config.txt` file. Change the secret key, username and password. The username and password will be the login for your site. There is only one user - you.
-1. Build image:
-   - Docker: `docker build . -t cs-flash-cards`
-   - Compose: `docker-compose build`
-1. Run container:
-   - Docker: `docker run -d -p 8000:8000 --name cs-flash-cards cs-flash-cards`
-   - Compose: `docker-compose up`
-1. Go your browser and type `http://localhost:8000`
-
-__If you already had a backup file `cards.db`. Run following command:__
-
-*Note: We don't need to rebuild image, just delete old container if you already built.*
-
-```shell
-docker run -d -p 8000:8000 --name cs-flash-cards -v <path_to_folder_contains_cards_db>:/src/db cs-flash-cards
-```
-
-- `<path_to_folder_contains_cards_db>`: is the full path contains `cards.db`.
-- Example: `/home/tinpee/cs-flash-cards/db`, and `cards.db` is inside this folder.
-
-For convenience, if you don't have `cards.db`, this container will auto copy a new one from `cards-empty.db`.
+![Review](screenshots/review.png)
 
 ---
 
-### How to backup data ?
-We just need store `cards.db` file, and don't need any sql command.
-- If you run container with `-v <folder_db>:/src/db` just go to `folder_db` and store `cards.db` anywhere you want.
-- Without `-v flag`. Type: `docker cp <name_of_container>:/src/db/cards.db /path/to/save`
+### Create Flashcard
 
-### How to restore data ?
-- Delete old container (not image): `docker rm cs-flash-cards`
-- Build a new one with `-v flag`:
-`docker run -d -p 8000:8000 --name cs-flash-cards -v <path_to_folder_contains_cards_db>:/src/db cs-flash-cards`
-- Voila :)
+Add new concepts and organize them by category.
 
-### How to deploy docker file on heroku
+![Create Card](screenshots/create-card.png)
 
-- first install [heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-- change `entrypoint.sh`
+## Why This Project?
 
-```shell
-- export CARDS_SETTINGS=/src/config.txt
-gunicorn --bind  0.0.0.0:$8000 flash_cards:app
-+ export CARDS_SETTINGS=/src/config.txt
-gunicorn --bind  0.0.0.0:$PORT flash_cards:app
-```
-- deploy docker file with following commands
+Learning Computer Science requires repetition and consistent review.
 
-```shell
-heroku login
-heroku container:login
-heroku create
-# Creating app... done, ⬢ your-app-name
-heroku container:push web --app your-app-name
-heroku container:release web --app your-app-name
-heroku open --app your-app-name
+This application was created to help students:
+
+* Remember important concepts
+* Prepare for technical interviews
+* Reinforce DSA knowledge
+* Build long-term retention through repetition
+
+## Running Locally
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/cs-flashcards.git
+cd cs-flashcards
 ```
 
-## Alternative for Node fans
+### 2. Create a virtual environment
 
-[@ashwanikumar04](https://github.com/ashwanikumar04) put together an alternative flash cards site running Node: https://github.com/ashwanikumar04/flash-cards
+```bash
+python -m venv venv
+```
 
-Check out the demo!
+Activate it:
 
-*Happy learning!*
-# computer-science-flash-cards
-# computer-science-flash-cards
+Linux/macOS
+
+```bash
+source venv/bin/activate
+```
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run migrations
+
+```bash
+python manage.py migrate
+```
+
+### 5. Create a superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+### 6. Start the development server
+
+```bash
+python manage.py runserver
+```
+
+Visit:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Future Improvements
+
+* Spaced repetition algorithm
+* Flashcard difficulty levels
+* Study streaks
+* User authentication
+* Deck sharing
+* Import/Export cards
+* Dark mode
+* AI-generated flashcards
+
+## Contributing
+
+Contributions, bug reports, and feature requests are welcome.
+
+Feel free to fork the repository and submit a pull request.
+
+## License
+
+This project is open-source and available under the MIT License.
+
+---
+
+Happy Learning 🚀
